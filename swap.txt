@@ -1,0 +1,147 @@
+
+------------------------------------------------------Menu.jsx sem onClick
+
+import Button from '../Button/Button';
+import './Menu.css';
+
+// Por enquanto, o onClick não faz nada. Vamos conectar depois.
+function Menu() {
+  return (
+    <nav className="app-menu">
+      <Button>Login</Button>
+      <Button>Cadastro</Button>
+    </nav>
+  );
+}
+
+export default Menu;
+
+------------------------------------------------------Menu.jsx com onClick
+import Button from '../Button/Button';
+import './Menu.css';
+
+// Recebe a função 'onMenuClick' via props para se comunicar com o App.jsx
+function Menu({ onMenuClick }) {
+  return (
+    
+    <nav className="app-menu">
+      {/* Ao clicar, chama a função recebida, passando o nome da tela desejada */}
+      <Button onClick={() => onMenuClick('login')}>Login</Button>
+      <Button onClick={() => onMenuClick('cadastro')}>Cadastro</Button>
+     
+    </nav>
+  );
+}
+
+export default Menu;
+
+-------------------------------------------------App.jsx só com o Header
+
+import Header from './components/Header/Header';
+
+function App() {
+  return (
+    <main>
+      <Header />
+      {/* Aqui virão os outros componentes */}
+    </main>
+  );
+}
+
+export default App;
+
+
+
+-------------------------------------------------App.jsx sem o cadastro com IF padrão
+import { useState } from 'react';
+import Header from './components/Header/Header';
+import Menu from './components/Menu/Menu';
+import FormularioLogin from './components/FormularioLogin/FormularioLogin';
+
+function App() {
+  const [tela, setTela] = useState('login');
+  
+  // 1. Declaramos uma variável para guardar o componente a ser renderizado
+  let conteudoDaTela;
+
+  // 2. Usamos o if/else tradicional para a lógica
+  if (tela === 'login') {
+    conteudoDaTela = <FormularioLogin />;
+  } else {
+    conteudoDaTela = <p>Aqui será o form de cadastro.</p>;
+  }
+
+  return (
+    <main>
+      <Header />
+      <Menu />
+      {/* 3. Renderizamos a variável que contém o componente correto */}
+      {conteudoDaTela}
+    </main>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------App.jsx sem o cadastro e if ternário
+
+
+import { useState } from 'react'; // Importando o hook
+import Header from './components/Header/Header';
+import Menu from './components/Menu/Menu';
+import FormularioLogin from './components/FormularioLogin/FormularioLogin';
+// Em breve, FormularioCadastro virá aqui
+
+function App() {
+  // Criando o estado para controlar a tela. Valor inicial: 'login'
+  const [tela, setTela] = useState('');
+
+  return (
+    <main>
+      <Header />
+      <Menu />
+      {/* Usando renderização condicional com operador ternário */}
+      {tela === 'login' ? <FormularioLogin /> : <p>Aqui será o form de cadastro</p>}
+    </main>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------App.jsx completo
+
+import { useState } from 'react';
+import Header from './components/Header/Header';
+import Menu from './components/Menu/Menu';
+import FormularioLogin from './components/FormularioLogin/FormularioLogin';
+import FormularioCadastro from './components/FormularioCadastro/FormularioCadastro';
+
+function App() {
+  // O estado 'tela' controla qual formulário será exibido.
+  // O valor inicial é 'login'.
+  const [tela, setTela] = useState('login');
+
+  // Função para alterar a tela. Será passada para o componente Menu.
+  const mudarTela = (novaTela) => {
+    setTela(novaTela);
+  };
+
+  return (
+    
+    <main>
+      <Header />
+      <Menu onMenuClick={mudarTela} />
+      
+      {/* Renderização Condicional:
+        - Se o estado 'tela' for 'login', mostra o FormularioLogin.
+        - Se não, mostra o FormularioCadastro.
+      */}
+      {tela === 'login' ? <FormularioLogin /> : <FormularioCadastro />}
+      
+    </main>
+  );
+}
+
+export default App;
