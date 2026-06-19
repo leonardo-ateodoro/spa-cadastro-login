@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 function FormularioLogin() {
 
 // Função para simular o envio do formulário 
-const handleSubmit => {
+const handleSubmit = () => {
     event.preventDefault();
     Swal.fire({
         title: 'Sucesso!',
@@ -16,25 +16,24 @@ const handleSubmit => {
     });
 };
 return (
-
-<form className={styles.formGroup} onSubmit=}>
+<form className={styles.formGroup} onSubmit={handleSubmit}>
 <h2> Acessar Conta </h2>
 <div className= {styles.formGroup}>
-    <label htmlFor="login-email" >Email</label>
-    <input id="login-email" type="email" placeholder="seuemail@exemplo.com" required
-    </div>
-    <div className={styles.formGroup}>
-        <label htmlFor="login-senha"Senha</label>
-        <input id="login-senha" type="password" placeholder="Sua senha" required/>
+<label htmlFor="login-email">Email</label>
+<input id="login-email" type="email" placeholder="seuemail@exemplo.com" required />
+</div>
+<div className={styles.formGroup}>
+        <label htmlFor="login-senha">Senha</label>
+        <input id="login-senha" type="password" placeholder="Sua senha" required />
         </div>
         <div className={styles.formActions}>
             <Button type= "submit">Entrar</Button> 
-            <Button type="reset">Limpar>/Button
-                </div>
-                </form>
-                );
-                }
-                export default FormularioLogin;
+            <Button type="reset">Limpar</Button>
+</div>
+</form>
+);
+}
+export default FormularioLogin;
             
 
     
